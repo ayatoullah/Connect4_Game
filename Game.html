@@ -1,0 +1,377 @@
+﻿<!DOCTYPE html>
+<!--//this page shows me undefineed .. look this line-->
+<html>
+<head>
+    <!--<meta charset="utf-8" />-->
+  <meta name="viewport" content="width=device-width , initial-scale=1"/>
+
+
+    <title></title>
+    
+    <link href="images/StyleSheet.css" rel="stylesheet" /> >
+    <script type="text/javascript"></script>
+    <script src="jquery-3.2.1.js"></script>
+    <script>
+        var posarr = new Array(4);
+        var editid;
+        var arrimg1 = ["images/1.JPG", "images/2.JPG", "images/3.JPG", "images/4.JPG"];
+        var arrimg2 = ["images/5.JPG", "images/6.JPG", "images/7.JPG", "images/8.JPG"];
+        var arrimg3 = ["images/9.JPG", "images/10.JPG", "images/11.JPG", "images/12.JPG"];
+        var arrimg4 = ["images/13.JPG", "images/14.JPG", "images/15.JPG", "images/16.JPG"];
+        //function myFunction() {
+        //    alert('gameover');
+        //    <div class="container">
+        //        <p>
+        //            Do u want to start new game?
+        //        </p>
+        //    </div>
+        //   // alert('Do u want to start new game');
+           
+        //}
+
+        //create table contains 4pis which will play with
+        function func1(arr) {
+            var table = document.createElement("TABLE");
+            table.border = "1";
+            var columnCount = 4;
+            row = table.insertRow(-1);
+            for (var j = 0; j < columnCount; j++) {
+                var cell = row.insertCell(-1);
+                //cell.innerHTML = arrimg[j];
+                cell.innerHTML = '<img src="' + arr[j] + '" />';
+
+
+            }
+            var dvTable = document.getElementById("dvTable");
+            dvTable.innerHTML = "";
+            dvTable.appendChild(table);
+            //to default focus on cell[0][0]
+            $("#matrix").find("tr")[0].childNodes[1].childNodes[1].focus();
+
+
+        }
+
+
+        $(function () {
+
+
+
+
+
+
+            //to create table of 4 pics of which collection we choose and scatter pics on matrix table
+            $("img").click(function (event) {
+                //to hide gallary
+                $("#imageTable").hide();
+                //to focus on first cell again
+                $("#matrix input").first().focus();
+
+
+                editid = $(this).attr("id");
+
+
+                if (editid == "img-clck1") {
+                    func1(arrimg1);
+                    appendrandpic(arrimg1);
+                    //start(arrimg1);
+                }
+
+
+                if (editid == "img-clck2") {
+                    func1(arrimg2);
+                    //appendrandpic();
+                    //start(arrimg2);
+                }
+
+
+                if (editid == "img-clck3") {
+
+                    func1(arrimg3);
+                    //appendrandpic();
+                    //start(arrimg3);
+                }
+
+
+                if (editid == "img-clck4") {
+
+                    func1(arrimg4);
+                    //appendrandpic();
+                    //start(arrimg4);
+                }
+            });
+
+            var matrixTable = $("#matrix");//document.getElementById("matrix");
+            matrixTable.on('mousedown', function (event) {
+
+                event.preventDefault();
+            });
+            matrixTable.on('keyup mouseup', function (e) {
+                if (e.which == 9) { e.preventDefault(); }
+            });
+
+            var currentRow = 0;
+            var currentCell = 0;
+
+            function ChangeCurrentCell() {
+                //alert(currentCell + " , " + currentRow);
+                var tabel = $("#matrix");//
+                var tableRow = tabel.find("tr")[currentRow];
+                var tableCell = tableRow.childNodes[currentCell + 1];
+                var inpCell = tableCell.childNodes[1];
+                $("input").css("border-color", "white");
+                $(inpCell).focus();
+                $(inpCell).css("border-color", "red");
+            }
+            ChangeCurrentCell();
+
+            //for (var i = 0; i < $("#matrix").find("tr")[0].childNodes.length; i++) {
+            //    alert($("#matrix").find("tr")[0].childNodes[i].nodeName);
+            //}
+            // el for de bt3arafek el children gowa el tr // akeed 3refty leh bnzawed 2
+
+
+
+            function getElement(arr) {
+
+                //var arrimg1 = ["images/1.JPG", "images/2.JPG", "images/3.JPG", "images/4.JPG"];
+
+                return arr[Math.floor(Math.random() * (arr.length))];
+
+
+            }
+            //var position;
+            //var pos;
+            
+            function getposition() {
+                var pos;
+                pos = Math.floor((Math.random() * 15));
+                return pos;
+            }
+
+            
+            //return unique random position
+            function start()
+            {
+                var flag = 0;//not exist
+                do {
+                    debugger;
+                    var position = getposition();
+                    for (var i = 0; i < posarr.length; i++) {
+                        if (position == posarr[i]) {
+                            flag = 1;
+                            //break;
+                        }
+                        else
+                        //continue;
+                        {
+                            flag = 0;
+                           // posarr.push(position);
+                            break;
+                        }
+                    }
+                } while (flag == 1);
+                posarr.push(position);
+
+
+                return position;
+            }
+            function appendrandpic(arr) {
+                var curposition = start();
+                //takes random pos
+                var gridcell1 = $("#matrix input:eq(" + curposition + ")");
+                //takes random pic from fuction'getElement' && append rand pic to rand pos
+                gridcell1.css("background-image", "url(" + getElement(arr) + ")");
+                //cell[1][4]
+                //position = getposition();
+
+                curposition = start();
+                var gridcell2 = $("#matrix input:eq(" + curposition + ")");
+                gridcell2.css("background-image", "url(" + getElement(arr) + ")");
+                //cell[2][3]
+
+                var curposition = start();
+                var gridcell3 = $("#matrix input:eq(" + curposition + ")");
+                gridcell3.css("background-image", "url(" + getElement(arr) + ")");
+
+                //cell[4][2]
+                var curposition = start();
+                var gridcell4 = $("#matrix input:eq(" + curposition + ")");
+                gridcell4.css("background-image", "url(" + getElement(arr) + ")");
+            }
+            
+            //start();
+            
+
+            //to move between cells and play with img
+            $(document).keyup(function (e) {
+                if (e.keyCode == 37) {
+                    if (currentCell > 0) {
+                        currentCell -= 2;
+                    }
+                    ChangeCurrentCell();
+                    //return false;
+                }
+                if (e.keyCode == 38) {
+                    currentRow--;
+                    ChangeCurrentCell();
+                    //return false;
+                }
+                if (e.keyCode == 39) {
+                    if (currentCell < 8) {
+                        currentCell += 2;
+                    }
+                    ChangeCurrentCell();
+                    //return false;
+                }
+                if (e.keyCode == 40) {
+                    currentRow++;
+                    ChangeCurrentCell();
+                    //return false;
+                }
+                // }).focus().keyup(function (e) {
+            }).focus().keydown(function (e) {
+
+                var codeid = e.keyCode;
+                e.preventDefault();
+
+                switch (codeid) {
+                    case 49://one
+
+                        var path1 = $("#dvTable").find("img").first().attr("src");
+                        $(":focus").css("background-image", "url(" + path1 + ")");
+                        break;
+                    case 50:
+
+                        var path2 = $("#dvTable img:eq(1)").attr("src");
+                        //alert(path2);
+                        $(":focus").css("background-image", "url(" + path2 + ")");
+
+                        break;
+                    case 51:
+                        //var path3 = $("#dvTable").find("img")[2].attr("src");
+                        var path3 = $("#dvTable img:eq(2)").attr("src");
+                        //alert(path2);
+                        $(":focus").css("background-image", "url(" + path3 + ")");
+
+                        break;
+                    case 52:
+                        var path4 = $("#dvTable").find("img").last().attr("src");
+                        $(":focus").css("background-image", "url(" + path4 + ")");
+                        break;
+
+                }
+                //$("#matrix").blur();
+            });
+            //choose images with numbers from[1-4] from group collection which he chooses first
+
+
+        });
+    </script>
+</head>
+<body>
+    <table id="imageTable">
+        <tr>
+            <td width="100" height="100">
+                <img src="images/collection1.JPG" id="img-clck1" width="100" height="100"/>
+            </td>
+            <td width="100" height="100">
+                <img src="images/collection 2.JPG" id="img-clck2" width="100" height="100"/>
+            </td>
+            <td width="100" height="100">
+                <img src="images/collection3.JPG" id="img-clck3" width="100" height="100"/>
+            </td>
+            <td width="100" height="100">
+                <img src="images/collection4.JPG" id="img-clck4" width="100" height="100"/>
+            </td>
+        </tr>
+    </table>
+    <div id="dvTable"></div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <table id="matrix" border="1">
+        <tr>
+            <td>
+                <input type="text"/>
+               
+            </td>
+            <td>
+                <input type="text"/>
+            </td>
+            <td>
+                <input type="text"/>
+            </td>
+            <td>
+                <input type="text"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <input type="text" />
+            </td>
+            <td>
+                <input type="text" />
+            </td>
+            <td>
+                <input type="text" />
+            </td>
+            <td>
+                <input type="text" />
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <input type="text" />
+            </td>
+            <td>
+                <input type="text" />
+            </td>
+            <td>
+                <input type="text" />
+            </td>
+            <td>
+                <input type="text" />
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <input type="text" />
+            </td>
+            <td>
+                <input type="text" />
+            </td>
+            <td>
+                <input type="text" />
+            </td>
+            <td>
+                <input type="text" />
+            </td>
+
+        </tr>
+
+    </table>
+    <br />
+    <br />
+    <br />
+    <br />
+    <button onclick="setTimeout(myFunction, 3000);">Start</button>
+
+
+    <script>
+
+
+    </script>
+</body>
+</html>
+<!-- todo:
+
+        2* 3awzeen eno ama yb2a 3and boundary yroh llawel tany (ya3ny ana law 3and cell 4 ywadeny cell 1 f el satr el tany) // heya de :D
+        3* t3mely logic el le3ba // w el logic 3shan yksab lesa mawal elsewr heya 3wazaha sewr  ? sf hosodkgedn 3la waqtak msh h3raf a2olek msh haz3egak tany wallahy :D ta7t famarsek ta7t amrek :D <3 teslam
+    hwa keda bytharak goa eltable bs msh byokrog sah ??
+    garaby
+    msh be5dar 3'eer mn 3andak :Dby5af mnk bayn:D ezzay bas
+    efta7y kda garaby-->

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Game Page</title>
+    <script src="jquery-3.2.1.js"></script>
+    <script>
+        $(function () {
+            $('table.arrow-nav').keydown(function (e) {
+                var $table = $(this);
+                var $active = $('input:focus,select:focus', $table);
+                var $next = null;
+                var focusableQuery = 'input:visible,select:visible,textarea:visible';
+                var position = parseInt($active.closest('td').index()) + 1;
+                console.log('position :', position);
+                switch (e.keyCode) {
+                    case 37: // <Left>
+                        $next = $active.parent('td').prev().find(focusableQuery);
+                        break;
+                    case 38: // <Up>                    
+                        $next = $active
+                            .closest('tr')
+                            .prev()
+                            .find('td:nth-child(' + position + ')')
+                            .find(focusableQuery)
+                            ;//if he stands in second td in arow he wants second td in the prev row
+
+                        break;
+                    case 39: // <Right>
+                        $next = $active.closest('td').next().find(focusableQuery);
+                        break;
+                    case 40: // <Down>
+                        $next = $active
+                            .closest('tr')
+                            .next()
+                            .find('td:nth-child(' + position + ')')
+                            .find(focusableQuery)
+                            ;
+                        break;
+                }
+                if ($next && $next.length)//*********
+                {
+                    $next.focus();
+                }
+            });
+        })
+       
+
+
+    </script>
+</head>
+<body>
+    <table border="1" width="100" height="100">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        
+    </table>
+
+</body>
+</html>

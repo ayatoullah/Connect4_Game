@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        var position;
+        var flag = 0;//not exist
+        function getposition() {
+            var pos = Math.floor((Math.random() * 15));
+            return pos;
+        }
+        function start() {
+
+            var posarr = new Array(3);
+            do {
+                position = getposition();
+
+
+                for (var i = 0; i < posarr.length; i++) {
+                    if (position == posarr[i]) {
+                        flag = 1;
+                        //break;
+
+
+                    }
+                    else
+                        //continue;
+                        posarr.push(position);
+                }
+            } while (flag == 1);
+                //posarr.push(position);
+
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

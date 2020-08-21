@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        .row {
+            width: 100%;
+            clear: both;
+            text-align: center;
+        }
+
+        .col {
+            display: inline-block;
+            min-height: 20px;
+            min-width: 20px;
+            padding: 8px 10px;
+            background-color: #ededed;
+            margin: 1px;
+        }
+
+            .col:hover {
+                background-color: #333333;
+                color: #ffffff;
+            }
+    </style>
+    <script type="text/javascript"></script>
+    <script src="jquery-3.2.1.js"></script>
+    <script language="javascript">
+
+        function genDivs(rows, cols) {
+            var e = document.getElementById("target");
+            cols = cols || rows;
+            var row;
+            var col;
+            //drawing divs
+            for (var r = 0; r < rows; r++) {
+                row = document.createElement("div");
+                row.className = "row";
+                for (var c = 0; c < cols; c++) {
+                    col = document.createElement("div");//create div
+                    col.className = "col";//add class "col" to div
+                    col.innerHTML = (r * rows) + c;//printing numbers from 0-15 on grid
+                    //if()
+
+                    col.innerHTML = getElement();//A or B or C or D //soon img
+                    row.appendChild(col);//add each col to his row
+                }
+                
+                e.appendChild(row);//add each row to target div
+            }
+            //for(var r = 0; c < rows; c++)
+            //{
+            //    for (var c = 0; r <cols; r++)
+            //    {
+            //        //check if cell has an image
+            //        if (col.innerHTML == null || col.innerHTML == undefined)
+            //            continue;//getout of this for statment
+            //        else
+            //            break;
+            //        //shuffling
+                    
+            //    }
+           
+            //}
+        }
+        function getElement() {
+            //var elements = [
+            //    "A",
+            //    "B",
+            //    "C",
+            //    "D"
+            //]
+            var arrimg1 = ["images/1.JPG", "images/2.JPG", "images/3.JPG", "images/4.JPG"];
+            //return elements[Math.floor(Math.random() * (elements.length))];
+            return arrimg1[Math.floor(Math.random() * (arrimg1.length))];
+
+        }
+        //function getposition() {
+        //    var elements = [
+        //        "A",
+        //        "B",
+        //        "C",
+        //        "D"
+        //    ]
+        //    var positions = [0, 1, 2, 3];
+        //    return elements[Math.floor(Math.random() * (positions.length))]
+        //    [Math.floor(Math.random() * (positions.length))];
+
+        //}
+    </script>    
+</head>
+<body>
+    <input type="button" onClick="genDivs(4);" value="click me" />
+    <div id="target"></div>
+
+</body>
+</html>
+
+
+
+
+
+
+
